@@ -1,0 +1,248 @@
+{
+  "Uuid": "2b558600-abc7-4178-b8f7-215be56370bc",
+  "IsCustomNode": false,
+  "Description": null,
+  "Name": "Filtering",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "f = open(r\"U:\\17_TraningAdvanceDynamo\\2_WORKING\\Tool\\Dynamo\\Traning-Dynamo-2024\\DesignScript.py\", \"r\")\r\n\r\nOUT = f.read() ",
+      "Engine": "IronPython2",
+      "VariableInputPorts": true,
+      "Id": "e73aa4d753e04a83b7df3943567b947f",
+      "Inputs": [
+        {
+          "Id": "96448ef17ad34a99b22a7e8f1294cab8",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "34899df3be1441d29e2952aa91ec5962",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded Python script."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "NodeType": "BooleanInputNode",
+      "InputValue": false,
+      "Id": "3f1d86a8235a4ab3aab3a0cce6f3186b",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "44393f5356d04cb487b059364734ba87",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Selection between a true and false."
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonStringNode, PythonNodeModels",
+      "Engine": "IronPython2",
+      "VariableInputPorts": true,
+      "NodeType": "ExtensionNode",
+      "Id": "c7788432bcc04cea9e24bb4ede0aa5af",
+      "Inputs": [
+        {
+          "Id": "ac370facc88d44cc99ffe33b027d0012",
+          "Name": "script",
+          "Description": "Python script to run.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "135f3bc1deef4cea85bc77dfbbcf4cf4",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "3fd3ce0e17e9446ea98c19b22ea1a8bd",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "9249185da5714b039dd85b18d7dd02f6",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs a Python script from a string."
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# Importing necessary libraries\r\nimport clr\r\nclr.AddReference('RevitServices')\r\nclr.AddReference('RevitAPI')\r\nclr.AddReference('RevitNodes')\r\nimport Revit\r\nclr.ImportExtensions(Revit.Elements)\r\nclr.ImportExtensions(Revit.GeometryConversion)\r\nfrom RevitServices.Persistence import DocumentManager\r\nfrom RevitServices.Transactions import TransactionManager\r\nfrom Autodesk.Revit.DB import FilteredElementCollector, BuiltInCategory, ElementCategoryFilter\r\n\r\n# Getting the current Revit document and view\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\nuidoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument\r\ncurrent_view = uidoc.ActiveView\r\n\r\n# Creating a filter to get all columns in the current view\r\ncolumn_filter = ElementCategoryFilter(BuiltInCategory.OST_Structural_Column)\r\n\r\n# Collecting all columns in the current view\r\ncolumns_in_view = FilteredElementCollector(doc, current_view.Id).WherePasses(column_filter).ToElements()\r\n\r\n# Output the results\r\nOUT = [column.ToDSType(True) for column in columns_in_view]",
+      "Engine": "IronPython2",
+      "VariableInputPorts": true,
+      "Id": "4faa6c08f647460cb45c5ea878b7ab19",
+      "Inputs": [
+        {
+          "Id": "cbbe5608f2044a2d8f18e60ebd1e675a",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "b452249731ad4d13a53359d43ce2b351",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded Python script."
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "34899df3be1441d29e2952aa91ec5962",
+      "End": "ac370facc88d44cc99ffe33b027d0012",
+      "Id": "c1594deef9604848b3a044eabeb1ddcc"
+    },
+    {
+      "Start": "44393f5356d04cb487b059364734ba87",
+      "End": "96448ef17ad34a99b22a7e8f1294cab8",
+      "Id": "1490f565c57846aaa2ba51c0e7271d48"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.10.1.3976",
+      "RunType": "Automatic",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "e73aa4d753e04a83b7df3943567b947f",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 374.916083076964,
+        "Y": -1477.1259757051691
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Boolean",
+        "Id": "3f1d86a8235a4ab3aab3a0cce6f3186b",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 165.75982231432897,
+        "Y": -1461.8914463797885
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script From String",
+        "Id": "c7788432bcc04cea9e24bb4ede0aa5af",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 590.618134172443,
+        "Y": -1480.1233115472935
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "4faa6c08f647460cb45c5ea878b7ab19",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1186.0921976343366,
+        "Y": -1560.0245120594925
+      }
+    ],
+    "Annotations": [
+      {
+        "Id": "0339651c2c8c4fb79849de8b6204236c",
+        "Title": "Design Script",
+        "Nodes": [
+          "e73aa4d753e04a83b7df3943567b947f",
+          "3f1d86a8235a4ab3aab3a0cce6f3186b",
+          "c7788432bcc04cea9e24bb4ede0aa5af"
+        ],
+        "Left": 155.75982231432897,
+        "Top": -1533.1233115472935,
+        "Width": 621.858311858114,
+        "Height": 209.0,
+        "FontSize": 36.0,
+        "InitialTop": -1480.1233115472935,
+        "InitialHeight": 218.1391972025699,
+        "TextblockHeight": 43.0,
+        "Background": "#FFC1D676"
+      }
+    ],
+    "X": 169.52732338568137,
+    "Y": 839.39249713965455,
+    "Zoom": 0.45049169143184559
+  }
+}
